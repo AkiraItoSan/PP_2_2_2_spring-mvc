@@ -10,16 +10,20 @@
 <div>
     <table border="1">
         <tr>
-            <th>Id</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
         </tr>
         <tr th:each="msg : ${userList}">
-            <th th:text="${msg.getId()}"></th>
             <th th:text="${msg.getFirstName()}"></th>
             <th th:text="${msg.getLastName()}"></th>
             <th th:text="${msg.getEmail()}"></th>
+            <td>
+                <a th:href="@{/{id}/edit(id=${msg.getId()})}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{/{id}/delete(id=${msg.getId()})}">Delete</a>
+            </td>
 
         </tr>
     </table>

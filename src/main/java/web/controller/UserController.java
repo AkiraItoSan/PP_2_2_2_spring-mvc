@@ -8,18 +8,18 @@ import web.models.User;
 import web.services.UserService;
 
 @Controller
-public class CarController {
+public class UserController {
 
     final UserService userService;
 
-    public CarController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping(value = "/")
     public String printCars(ModelMap model) {
         model.addAttribute(userService.listUsers());
-        return "cars";
+        return "user";
     }
 
     @PostMapping()
@@ -42,6 +42,13 @@ public class CarController {
 
         userService.updateUser(user);
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@ModelAttribute("user") User user) {
+
+        userService.remove(user);
         return "redirect:/";
     }
 }

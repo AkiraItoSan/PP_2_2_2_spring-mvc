@@ -1,7 +1,9 @@
-web\controller\HelloController.class
+web\dao\UserDaoImp.class
 web\config\AppInit.class
+web\config\DBConfig.class
 web\models\User.class
 web\config\WebConfig.class
-web\services\CarServiceImpl.class
-web\controller\CarController.class
-web\services\CarService.class
+web\controller\UserController.class
+web\dao\UserDao.class
+web\services\UserServiceImpl.class
+web\services\UserService.class

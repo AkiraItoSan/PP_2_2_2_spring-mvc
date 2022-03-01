@@ -1,44 +1,41 @@
 package web.dao;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import web.models.User;
-
-import javax.persistence.TypedQuery;
-import java.util.List;
-
-@Repository
-public class UserDaoImp implements UserDao {
+public class UserDaoImp {
 
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    @Override
-    public void updateUser(User user) {
-        sessionFactory.getCurrentSession().update(user);
-    }
-
-    @Override
-    public void remove(User user) {
-        sessionFactory.getCurrentSession().remove(user);
-    }
-
-    @Override
-    public void add(User user) {
-        sessionFactory.getCurrentSession().save(user);
-    }
-
-    @Override
-    public List<User> listUsers() {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
-        return query.getResultList();
-    }
-
-    @Override
-    public User getUserById(Long id) {
-        User user = (User) sessionFactory.getCurrentSession().createQuery("from User where id").list().get(0);
-        return user;
-    }
+//    private final EntityManager entityManager;
+//
+//    public UserDaoImp(EntityManager entityManager) {
+//        this.entityManager = entityManager;
+//    }
+//
+//    public void updateUser(User user) {
+////        entityManager.getTransaction().begin();
+//        entityManager.merge(user);
+////        entityManager.getTransaction().commit();
+//    }
+//
+//    public void remove(User user) {
+////        entityManager.getTransaction().begin();
+//        entityManager.remove(user);
+////        entityManager.getTransaction().commit();
+//    }
+//
+//    public void add(User user) {
+////        entityManager.getTransaction().begin();
+//        entityManager.persist(user);
+////        entityManager.getTransaction().commit();
+//    }
+//
+//    public List<User> listUsers() {
+////        entityManager.getTransaction().begin();
+//        List<User> query = entityManager.createQuery("select user from User").getResultList();
+////        entityManager.getTransaction().commit();
+//        return query;
+//    }
+//
+//    public User getUserById(Long id) {
+//        User user = entityManager.createQuery(("from User where id=" + id), User.class).getSingleResult();
+//        return user;
+//    }
 }
