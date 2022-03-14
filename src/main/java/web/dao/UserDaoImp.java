@@ -1,41 +1,43 @@
 package web.dao;
 
-public class UserDaoImp {
+import org.springframework.stereotype.Repository;
+import web.models.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
-//    private final EntityManager entityManager;
-//
-//    public UserDaoImp(EntityManager entityManager) {
-//        this.entityManager = entityManager;
-//    }
-//
-//    public void updateUser(User user) {
-////        entityManager.getTransaction().begin();
-//        entityManager.merge(user);
-////        entityManager.getTransaction().commit();
-//    }
-//
-//    public void remove(User user) {
-////        entityManager.getTransaction().begin();
-//        entityManager.remove(user);
-////        entityManager.getTransaction().commit();
-//    }
-//
-//    public void add(User user) {
-////        entityManager.getTransaction().begin();
-//        entityManager.persist(user);
-////        entityManager.getTransaction().commit();
-//    }
-//
-//    public List<User> listUsers() {
-////        entityManager.getTransaction().begin();
-//        List<User> query = entityManager.createQuery("select user from User").getResultList();
-////        entityManager.getTransaction().commit();
-//        return query;
-//    }
-//
-//    public User getUserById(Long id) {
-//        User user = entityManager.createQuery(("from User where id=" + id), User.class).getSingleResult();
-//        return user;
-//    }
+@Repository
+public class UserDaoImp implements UserDao {
+
+    @PersistenceContext
+    private final EntityManager entityManager;
+
+    public UserDaoImp(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        entityManager.merge(user);
+    }
+
+    @Override
+    public void remove(User user) {
+        entityManager.remove(entityManager.find(User.class, user.getId()));
+    }
+
+    @Override
+    public void add(User user) {
+        entityManager.persist(user);
+    }
+
+    @Override
+    public List<User> listUsers() {
+        return entityManager.createQuery("FROM User", User.class).getResultList();
+    }
+
+    public User getUserById(Long id) {
+        return entityManager.createQuery(("from User where id=" + id), User.class).getSingleResult();
+    }
 }
